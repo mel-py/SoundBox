@@ -88,11 +88,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void finishSetUp() {
         pm = new PlaylistManager(getApplicationContext());
 
-        if (pm.getPlaylistSize("allTracks") > 0) {
-            mediaPlayer = new MediaPlayer();
+        mediaPlayer = new MediaPlayer();
 
-            updatePlayList();
-        }
+        updatePlayList();
+
         playButton = (Button) findViewById(R.id.btnPlay);
         prvButton = (Button) findViewById(R.id.btnPrv);
         nextButton = (Button) findViewById(R.id.btnNext);

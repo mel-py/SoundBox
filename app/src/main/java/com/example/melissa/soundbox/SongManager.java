@@ -1,5 +1,8 @@
 package com.example.melissa.soundbox;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -43,7 +46,6 @@ public class SongManager {
                     if (file.isDirectory()) {
                         scanDirectory(file);
                     } else {
-                        System.out.println(file);
                         songList.add(getSongInfo(file));
                     }
                 }

@@ -2,6 +2,7 @@ package com.example.melissa.soundbox;
 
 import android.content.Context;
 import android.os.Environment;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -21,9 +22,10 @@ public class PlaylistManager {
     private SongManager manager;
     private utils utility_manager;
 
-    private final String PATH = new String(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Music");
+    private final String PATH = new String(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Music/");
 
     public PlaylistManager(Context ctx) {
+        Toast.makeText(ctx, PATH, Toast.LENGTH_LONG).show();
         utility_manager = new utils();
 
         playlists = new HashMap<>();
