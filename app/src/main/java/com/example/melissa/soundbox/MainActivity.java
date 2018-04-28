@@ -86,7 +86,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     public void finishSetUp() {
-        pm = new PlaylistManager();
+        pm = new PlaylistManager(getApplicationContext());
 
         if (pm.getPlaylistSize("allTracks") > 0) {
             mediaPlayer = new MediaPlayer();
