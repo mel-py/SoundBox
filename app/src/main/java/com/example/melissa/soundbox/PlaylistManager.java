@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Environment;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,12 +23,12 @@ public class PlaylistManager {
 
     private final String PATH = new String(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Music");
 
-    public PlaylistManager() {
+    public PlaylistManager(Context ctx) {
         utility_manager = new utils();
 
-        playlists = new HashMap<String, ArrayList<song>>();
+        playlists = new HashMap<>();
         manager = new SongManager();
-        int flag = loadPlaylist();
+        int flag = loadPlaylist(ctx);
         if (flag != 0){
             ArrayList<song> songList = manager.getFiles(PATH);
             playlists.put("allTracks", songList);
@@ -65,12 +64,43 @@ public class PlaylistManager {
         return playlists.get(name);
     }
 
-    public void savePlaylists() {
-        //todo: implement
+    public void savePlaylists(Context ctx) {
+        try {
+            ArrayList<song> favouritesList = playlists("favourites");
+            FileOutputStream fos = ctx.openFileOutput("favourites.sav", Context.MODE_PRIVATE);
+            for (int i = 0; i < favouritesList.size(); i++) {
+                song curSong = favouritesList.get(i);
+                fos.write((curSong.getPath() + "|" + curSong.getName() + "|"
+                        + curSong.getArtist() + "|" + curSong.getAlbum() + "|" +
+                        curSong.getAlbumArt() + "\n").getBytes());
+            }
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public int loadPlaylist() {
-        //todo: implement
+    public int loadPlaylist(Context ctx) {
+        try {
+            FileInputStream fis = ctx.openFileInput("favourites.sav");
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+            String line = in.readLine();
+            ArrayList<song> favouritesList = new ArrayList<>();
+            while (line != null) {
+                String[] parts = line.split("\\|");
+                favouritesList.add(new song(parts[0], parts[1], parts[2], parts[3],
+                        parts[4].getBytes()));
+                line = in.readLine();
+            }
+            fis.close();
+        } catch (FileNotFoundException e) {
+            return -1;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return 0;
     }
 }

@@ -296,7 +296,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onDestroy();
 
         //save playlists
-        pm.savePlaylists();
+        pm.savePlaylists(getApplicationContext());
 
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
