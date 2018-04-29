@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         mediaPlayer = new MediaPlayer();
 
-        updatePlayList();
+        updatePlayList("allTracks");
 
         playButton = (Button) findViewById(R.id.btnPlay);
         prvButton = (Button) findViewById(R.id.btnPrv);
@@ -194,12 +194,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 nextMusic();
                 break;
             case R.id.tracksBtn:
-                curPlaylist = "allTracks";
-                updatePlayList();
+                updatePlayList("allTracks");
                 break;
             case R.id.favPlaylistBtn:
-                curPlaylist = "favourites";
-                updatePlayList();
+                updatePlayList("favourites");
                 break;
             case R.id.favBtn:
                 pm.addToPlaylist("favourites", pm.getFromPlaylist(curPlaylist, songPosition));
@@ -260,7 +258,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         playMusic();
     }
 
-    public void updatePlayList() {
+    public void updatePlayList(String curPlaylist) {
         listView = (ListView)findViewById(R.id.listView);
         songPosition = 0;
         ArrayList<song> cur = pm.playlists(curPlaylist);
@@ -270,6 +268,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         } else if (cur.size() == 0) {
             Toast.makeText(this, "empty playlist", Toast.LENGTH_LONG).show();
         } else {
+            this.curPlaylist = curPlaylist;
             customListView = new CustomListViewAdaptor(getApplicationContext(), cur);
             listView.setAdapter(customListView);
         }

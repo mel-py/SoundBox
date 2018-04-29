@@ -30,10 +30,11 @@ public class PlaylistManager {
 
         playlists = new HashMap<>();
         manager = new SongManager();
+        ArrayList<song> songList = manager.getFiles(PATH);
+        playlists.put("allTracks", songList);
+
         int flag = loadPlaylist(ctx);
         if (flag != 0){
-            ArrayList<song> songList = manager.getFiles(PATH);
-            playlists.put("allTracks", songList);
             playlists.put("favourites", new ArrayList<song>());
         }
     }
@@ -97,6 +98,7 @@ public class PlaylistManager {
                 line = in.readLine();
             }
             fis.close();
+            playlists.put("favourites", favouritesList);
         } catch (FileNotFoundException e) {
             return -1;
         } catch (IOException e) {
