@@ -60,18 +60,11 @@ public class CustomListViewAdaptor extends BaseAdapter {
 
             TextView title = (TextView)view.findViewById(R.id.title);
             TextView artist = (TextView)view.findViewById(R.id.artist);
-            ImageView image = (ImageView)view.findViewById(R.id.albumThumbnail);
 
             song mSong = songs.get(position);
 
             title.setText(mSong.getName());
             artist.setText(mSong.getArtist());
-            byte [] albumArt = mSong.getAlbumArt();
-            if (albumArt != null) {
-                image.setImageBitmap(BitmapFactory.decodeByteArray(albumArt, 0, albumArt.length));
-            } else {
-                image.setImageDrawable(mContext.getResources().getDrawable(R.drawable.default_album));
-            }
         }
 
         return view;

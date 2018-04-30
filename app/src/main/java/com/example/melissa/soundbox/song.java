@@ -8,16 +8,12 @@ import java.io.Serializable;
 
 public class song implements Serializable {
     private String songPath, songName, songArtist, songAlbum;
-    private byte [] songAlbumArt;
-    private boolean isFav;
 
-    public song (String path, String name, String artist, String album, byte [] albumArt) {
+    public song (String path, String name, String artist, String album) {
         songPath = path;
         songName = name;
         songArtist = artist;
         songAlbum = album;
-        songAlbumArt = albumArt;
-        isFav = false;
     }
 
     public String getPath() {
@@ -34,9 +30,5 @@ public class song implements Serializable {
 
     public String getAlbum() {
         return songAlbum;
-    }
-
-    public byte [] getAlbumArt() {
-        return songAlbumArt;
     }
 }

@@ -84,11 +84,17 @@ public class SongManager {
             album = "Unknown";
         }
 
-        art = mmr.getEmbeddedPicture();
-
-        currentSong = new song(song.getPath(), name, artist, album, art);
+        currentSong = new song(song.getPath(), name, artist, album);
 
         return currentSong;
+    }
+
+    //Because app takes to long to load when loading all album art right away
+    //Reduce load time by only calling it when needed
+    public byte[] getAlbumArt(String path) {
+        mmr.setDataSource(path);
+
+        return mmr.getEmbeddedPicture();
     }
 
     public void destory() {

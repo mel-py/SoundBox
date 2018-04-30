@@ -74,8 +74,7 @@ public class PlaylistManager {
             for (int i = 0; i < favouritesList.size(); i++) {
                 song curSong = favouritesList.get(i);
                 fos.write((curSong.getPath() + "|" + curSong.getName() + "|"
-                        + curSong.getArtist() + "|" + curSong.getAlbum() + "|" +
-                        curSong.getAlbumArt() + "\n").getBytes());
+                        + curSong.getArtist() + "|" + curSong.getAlbum()).getBytes());
             }
             fos.close();
         } catch (FileNotFoundException e) {
@@ -93,8 +92,7 @@ public class PlaylistManager {
             ArrayList<song> favouritesList = new ArrayList<>();
             while (line != null) {
                 String[] parts = line.split("\\|");
-                favouritesList.add(new song(parts[0], parts[1], parts[2], parts[3],
-                        parts[4].getBytes()));
+                favouritesList.add(new song(parts[0], parts[1], parts[2], parts[3]));
                 line = in.readLine();
             }
             fis.close();

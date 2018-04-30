@@ -28,6 +28,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private boolean isPaused = true;
 
     private PlaylistManager pm;
+    private SongManager sm;
 
     public ArrayList<song> songList; //unsorted
     private String curPlaylist = "allTracks";
@@ -87,6 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     public void finishSetUp() {
         pm = new PlaylistManager(getApplicationContext());
+        sm = new SongManager();
 
         mediaPlayer = new MediaPlayer();
 
@@ -124,7 +126,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 song cur = pm.getFromPlaylist(curPlaylist, songPosition);
-                byte [] albumPicture = cur.getAlbumArt();
+                byte [] albumPicture = sm.getAlbumArt(cur.getPath());
                 if (albumPicture != null) {
                     try {
                         albumButton.setImageBitmap(BitmapFactory.decodeByteArray(albumPicture, 0, albumPicture.length));
