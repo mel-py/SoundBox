@@ -215,7 +215,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 updatePlayList("favourites");
                 break;
             case R.id.favBtn:
-                pm.addToPlaylist("favourites", pm.getFromPlaylist(curPlaylist, songPosition));
+                if (favButton.getTag() == android.R.drawable.btn_star_big_off) {
+                    pm.addToPlaylist("favourites", pm.getFromPlaylist(curPlaylist, songPosition));
+                } else {
+                    pm.removeFromPlaylist("favourites", pm.getFromPlaylist(curPlaylist, songPosition));
+                }
         }
     }
 
@@ -229,6 +233,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     mediaPlayer.prepare();
                     mediaPlayer.start();
                     playButton.setBackground(getResources().getDrawable(android.R.drawable.ic_media_pause));
+                    if (pm.playlistContains("favourites",
+                            pm.getFromPlaylist(curPlaylist, songPosition))) {
+                        favButton.setBackgroundDrawable(getResources().
+                                getDrawable(android.R.drawable.btn_star_big_on));
+                        favButton.setTag(android.R.drawable.btn_star_big_on);
+                    } else {
+                        favButton.setBackgroundDrawable(getResources().
+                                getDrawable(android.R.drawable.btn_star_big_off));
+                        favButton.setTag(android.R.drawable.btn_star_big_off);
+                    }
                 }
             } catch (IOException e) {
                 Log.v(getString(R.string.app_name), e.getMessage());

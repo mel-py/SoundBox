@@ -51,12 +51,28 @@ public class PlaylistManager {
         playlists.get(name).add(s);
     }
 
-    public void removeFromPlaylist(String name, int index) {
-        playlists.get(name).remove(index);
+    public void removeFromPlaylist(String name, song s) {
+        ArrayList<song> curPlaylist = playlists.get(name);
+        for (int i = 0; i < curPlaylist.size(); i++) {
+            if (curPlaylist.get(i) == s) {
+                playlists.get(name).remove(i);
+                break;
+            }
+        }
     }
 
     public song getFromPlaylist(String name, int index) {
         return playlists.get(name).get(index);
+    }
+
+    public boolean playlistContains(String name, song s) {
+        ArrayList<song> curPlaylist = playlists.get(name);
+        for (int i = 0; i < curPlaylist.size(); i++) {
+            if (curPlaylist.get(i) == s) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getPlaylistSize(String name) {
